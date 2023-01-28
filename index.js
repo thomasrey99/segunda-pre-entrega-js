@@ -1,9 +1,11 @@
 let total
+let nombreUsuario;
 let cuotasMensuales
 let conInteres
 let intereses
 let pagoMensual
-
+let i=0
+let prestamos=[];
 function ingresarNumero(){
     let monto=parseInt(prompt("Ingrese cantidad del monto solicitado (entre $10.000 - $150.0000)"))
     while((monto<10000)||(monto>150000)){
@@ -13,7 +15,13 @@ function ingresarNumero(){
     console.log("monto solicitado: "+monto)
     return monto
 }
-
+const solicitarNombre=()=>{
+    let nombre=prompt("Ingrese su nombre")
+    while(nombre==""){
+        nombre=prompt("Por favor ingrese un nombre")
+    }
+    return nombre
+}
 function cuotasFinanciar(){
     let cuotas=parseInt(prompt("ingrese cantidad de cuotas a financiar (3, 6, 9 o 12 cuotas)"))
     while((cuotas!=3)&&(cuotas!=6)&&(cuotas!=9)&&(cuotas!=12)){
@@ -57,15 +65,32 @@ function division(){
     console.log(`valor de cada cuota: ${valor}`)
     return valor
 }
-function notificacion(){
-    alert(`el monto de $${total} tiene un interes de $${intereses} en la cantida de cuotas seleccionadas`)
-    alert(`adquiriendo el prestamo usted debera abonar ${cuotasMensuales} cuotas de $${pagoMensual}`)
+ 
+class prestamo{
+    constructor(nombreUsuario, fecha, solicitudNumero, monto, cuotas, interes, valorCuota){
+        this.nombre=nombreUsuario;
+        this.fecha=fecha;
+        this.solicitud=solicitudNumero;
+        this.monto=monto;
+        this.cuotas=cuotas;
+        this.total=interes;
+        this.valorMensual=valorCuota
+        
+    }
+    informacion(){alert(`Hola ${this.nombre}!, el monto de $${this.monto}, a pagar en ${this.cuotas} cuotas, tendra un total con intereses de ${this.total} en la cantidad de cuotas seleccionadas, debiendo abonar $${this.valorMensual} por mes`)}
 }
-
 let solicitud=confirm("¿desea solicitar un prestamo?")
 
 do{
     if(solicitud==true){
+        i++
+
+        let fechaYhora= new Date()
+
+        fechaYhora.toLocaleString
+
+        nombreUsuario=solicitarNombre();
+
         total=ingresarNumero()
 
         cuotasMensuales=cuotasFinanciar()
@@ -78,7 +103,17 @@ do{
 
         pagoMensual=division()
 
-        notificacion()
+        const nuevoPrestamo= new prestamo(nombreUsuario, fechaYhora, i, total, cuotasMensuales, conInteres, pagoMensual)
+        
+        nuevoPrestamo.informacion()
+
+        prestamos.push(nuevoPrestamo)
+        
+        console.log(prestamos)
+        
+
+        
+
 
         solicitud=confirm("¿Desea volver a simular un prestamo?")
 
