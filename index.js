@@ -6,11 +6,13 @@ let intereses
 let pagoMensual
 let i=0
 let prestamos=[];
+let prestamosValidos=[]
 function ingresarNumero(){
-    let monto=parseInt(prompt("Ingrese cantidad del monto solicitado (entre $10.000 - $150.0000)"))
+    let monto=parseFloat(prompt("Ingrese cantidad del monto solicitado (entre $10.000 - $150.0000)"))
+   
     while((monto<10000)||(monto>150000)){
         alert("Ingrese un monto entre $10.000 y $150.000")
-        monto=parseInt(prompt("Ingrese nuevamente el monto solicitado (entre $10.000 - $150.0000)"))
+        monto=parseFloat(prompt("Ingrese nuevamente el monto solicitado (entre $10.000 - $150.0000)"))
     }
     console.log("monto solicitado: "+monto)
     return monto
@@ -23,7 +25,7 @@ const solicitarNombre=()=>{
     return nombre
 }
 function cuotasFinanciar(){
-    let cuotas=parseInt(prompt("ingrese cantidad de cuotas a financiar (3, 6, 9 o 12 cuotas)"))
+    let cuotas=parseFloat(prompt("ingrese cantidad de cuotas a financiar (3, 6, 9 o 12 cuotas)"))
     while((cuotas!=3)&&(cuotas!=6)&&(cuotas!=9)&&(cuotas!=12)){
         alert("por favor ingrese 3, 6, 9 o 12 cuotas afinanciar")
         cuotas= parseInt(prompt("ingrese cantidad de cuotas a financiar (3, 6, 9, 12)"));
@@ -65,7 +67,12 @@ function division(){
     console.log(`valor de cada cuota: ${valor}`)
     return valor
 }
- 
+function buscador(){
+    const validos=prestamos.filter((el)=>el.nombre==="thomas")
+    prestamosValidos=prestamosValidos.concat(validos)
+    console.log(prestamosValidos)
+    return prestamosValidos
+}
 class prestamo{
     constructor(nombreUsuario, fecha, solicitudNumero, monto, cuotas, interes, valorCuota){
         this.nombre=nombreUsuario;
@@ -109,10 +116,7 @@ do{
 
         prestamos.push(nuevoPrestamo)
         
-        console.log(prestamos)
-        
-
-        
+        console.log(prestamos)    
 
 
         solicitud=confirm("¿Desea volver a simular un prestamo?")
@@ -126,3 +130,4 @@ do{
 
 }while(solicitud)
 
+buscador()
